@@ -1,3 +1,4 @@
+import copy
 
 def process_row(row):
     row_arr = []
@@ -13,19 +14,29 @@ def process_instruction(x):
             "destination": int(instruction_array[5]),
             }
     
-def move_create(instruction):
+def move_create(instruction, stack_of_boxes, new_crane=False):
     if instruction["qty"] == 0:
         return
     
+    #grab size is always negitive because we are pulling from top of stack
+    if(new_crane):
+        grab_size = -1 * instruction["qty"] 
+    else:
+        grab_size = -1
+        
     # origin and destination have to be `-1` to offset 0 based index
-    number_to_move = tower[instruction["origin"] -1][-1] # grab block with crane
-    tower[instruction["origin"] -1] = tower[instruction["origin"] -1][0:-1] # remove block from old tower
-    tower[instruction["destination"] -1].append(number_to_move) # drop block off on new location
-    move_create({
-            "qty": instruction["qty"] -1,
-            "origin": instruction["origin"],
-            "destination": instruction["destination"],
-            })
+    boxes_to_move = stack_of_boxes[instruction["origin"] -1][grab_size:] # grab block with crane
+    stack_of_boxes[instruction["origin"] -1] = stack_of_boxes[instruction["origin"] -1][0:grab_size] # remove blocks from old tower
+    stack_of_boxes[instruction["destination"] -1] = stack_of_boxes[instruction["destination"] -1] + boxes_to_move # drop block off on new location
+    
+    if(new_crane):
+        return 
+    else:
+        move_create({
+                "qty": instruction["qty"] -1,
+                "origin": instruction["origin"],
+                "destination": instruction["destination"],
+                }, stack_of_boxes, new_crane)
             
 day5input = open("./day5input.txt", "r" )
 output = day5input.read()
@@ -43,22 +54,22 @@ for row in rotated_towers:
         if(item != " "):
             tower[col_index] = [item] + tower[col_index]
 
-print("---")
 
-# move 5 from 3 to 6
 instructions = [ process_instruction(x) for x in intructions.split('\n') if x != "" ]
 
+tower2 = copy.deepcopy(tower)
 for instruction in instructions:
-    move_create(instruction)
+    move_create(instruction, tower)
 
-print(tower)
+for instruction in instructions:
+    move_create(instruction, tower2, True)
+    
+print("----p1------")
+for column in tower:
+    print(column[-1])
 
-print("\n----Part 1-----")
-print("-")
-
-
-print("----Part 2-----")
-print("-")
-
+print("----p2------")
+for column in tower2:
+    print(column[-1])
 
 day5input.close()
