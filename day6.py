@@ -7,6 +7,9 @@ day6input.close()
 letters = [*output]
 
 def find_first_unique_group(list, count=0, size=4):
+    if len(list) < size:
+        return False
+    
     first_group = list[0:size]
     if len(first_group) == len({*first_group}):
         return count
