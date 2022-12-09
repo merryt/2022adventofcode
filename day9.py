@@ -49,20 +49,17 @@ day9input.close()
 instructions = [ [ x.split(" ")[0], int(x.split(" ")[1])] for x in output.split('\n') if x != ""]
 
 h_position = {"x":0, "y":0}
-
-t_position = {"x":0,"y":0,}
 t_history = []
-b_pos = [{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,}]
-
+b_pos = [{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,},{"x":0,"y":0,}]
 
 for x in instructions:
     for step in range(x[1]):
         move_h(x[0])
         move_knot(h_position, b_pos[0])
-        for i in range(1,8):
+        for i in range(1,9):
             move_knot(b_pos[i-1],b_pos[i])
         
-        t_history.append(copy.deepcopy(move_knot(b_pos[7],t_position)))
+        t_history.append(copy.deepcopy(b_pos[-1]))
 
 
 unique_locations = []
@@ -72,5 +69,3 @@ for location in t_history:
 
 print("----p1 & 2------")
 print(len(unique_locations))
-
-
