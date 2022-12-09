@@ -1,5 +1,3 @@
-import copy
-
 def line_of_site(y, x, dir, height, count = False):
     if y >= trees_len or x >= trees_len or y < 0 or x < 0:
         return True
