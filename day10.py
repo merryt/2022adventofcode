@@ -22,7 +22,7 @@ for i in range(len(instructions)):
         buffer.append(op_val)
         rolling_interpretation.append(rolling_interpretation[i-1] + op_val)
 
-# print(buffer)    
+print(buffer)    
 
 def signal_strength_checker(buffer, time):
     return sum(buffer[0:time] * time)
