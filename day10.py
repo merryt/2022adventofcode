@@ -1,6 +1,6 @@
 import math
 
-day10input = open("./day10large.txt", "r" )
+day10input = open("./day10input.txt", "r" )
 output = day10input.read()
 day10input.close()
 width = 40
@@ -12,16 +12,15 @@ buffer = [1]
 rolling_interpretation = [1]
 for i in range(len(instructions)):
     op = instructions[i]
-    rolling_interpretation.append(rolling_interpretation[i-1])
-
+    rolling_interpretation.append(rolling_interpretation[len(rolling_interpretation) -1])
     if op == "noop":
         buffer.append(False)
     else:
         op_val = int(op.split(" ")[1])
         buffer.append(0)
         buffer.append(op_val)
-        rolling_interpretation.append(rolling_interpretation[i-1] + op_val)
-
+        rolling_interpretation.append(rolling_interpretation[len(rolling_interpretation) -1] + op_val)
+        
 print(buffer)    
 
 def signal_strength_checker(buffer, time):
@@ -47,7 +46,6 @@ screen = [[" " for _ in range(width)] for _ in range(height)]
 for i in range(1, 240):
     row = math.floor((i - 1) / 40)
     col = (i) % 40
-    print(col, rolling_interpretation[i])
     if (abs(col - rolling_interpretation[i]) <= 1):
       screen[row][col] = "█"
 
