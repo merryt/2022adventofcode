@@ -1,5 +1,7 @@
 import math
-day11input = open("./day11small.txt", "r" )
+from functools import reduce
+from math import lcm
+day11input = open("./day11input.txt", "r" )
 output = day11input.read()
 day11input.close()
 
@@ -54,7 +56,8 @@ def check_and_toss(monkey):
     worry_level = execute_operation(monkey, item_in_hand)
     
     # bored_worry_level = math.floor(worry_level/3) # part 1 will need this
-    bored_worry_level = worry_level
+    bored_worry_level = worry_level % modulus
+    
     
     if bored_worry_level % monkey["test"] == 0:
         monkeys[monkey["if_true_destination"]]["items"].append(bored_worry_level)
@@ -64,9 +67,10 @@ def check_and_toss(monkey):
 
 monkeys = [ build_monkey(x) for x in output.split('\n\n') if x != ""]
 
-
+modulus = reduce(lcm, [m["test"] for m in monkeys])
+print("modulus", modulus)
 # check_and_toss(monkeys[0])
-for i in range(1000):
+for i in range(10000):
     print(i)
     for monkey in monkeys:
         for item in range(len(monkey["items"])):
@@ -82,8 +86,8 @@ for monkey in monkeys:
     monkey_business.append(monkey["times_inspected"])
 monkey_business = sorted(monkey_business)
 
-# print(monkey_business)
-# print(monkey_business[-1] * monkey_business[-2])
+print(monkey_business)
+print(monkey_business[-1] * monkey_business[-2])
 
 
 
