@@ -1,6 +1,6 @@
 import math
 
-day10input = open("./day10input.txt", "r" )
+day10input = open("./day10large.txt", "r" )
 output = day10input.read()
 day10input.close()
 width = 40
@@ -55,6 +55,7 @@ for i in range(1, 240):
 for row in screen:
     print("".join(str(x) for x in row))
     
-
-# print(buffer)
+print('-------')
+print(buffer)
+print('-------')
 print(rolling_interpretation)

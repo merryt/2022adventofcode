@@ -30,7 +30,6 @@ def check_and_toss(monkey):
     item_in_hand = monkey["items"][0]
     monkey["items"] = monkey["items"][1:]
     worry_level = execute_operation(monkey, item_in_hand)
-    
     # bored_worry_level = math.floor(worry_level/3) # part 1 will need this
     bored_worry_level = worry_level % modulus
     
