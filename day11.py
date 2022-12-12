@@ -26,30 +26,6 @@ def build_monkey(x):
 def execute_operation(monkey, old_val):
     return eval(monkey["operation"].replace("old", str(old_val)))
 
-def run_test(worry_level, test_number):
-    # 2,3,5,11,13,17,19,23
-    if test_number == 2:
-        return int(str(worry_level)[-1]) % 2 == 0      
-    if test_number == 3:
-        return sum(str(worry_level).split()) % 3 == 0      
-    if test_number == 5:
-        return int(str(worry_level)[-1]) in [0,5]  
-    if test_number == 11:
-        wl_str = str(worry_level)
-        return (int(wl_str[0:-1]) - int(wl[-1])) % 11
-    if test_number == 13:
-        wl_str = str(worry_level)
-        return (int(wl_str[0:-2])*4 - int(wl[-2])) % 13
-    if test_number == 17:
-        wl_str = str(worry_level)
-        return (int(wl_str[0:-2])*2 - int(wl[-2])) % 17
-    if test_number == 19:
-        wl_str = str(worry_level)
-        return (int(wl_str[0:-2]) + (4* int(wl[-2]))) % 19
-    if test_number == 23:
-        wl_str = str(worry_level)
-        return (int(wl_str[0:-3]) - (2* int(wl[-3]))) % 19
-
 def check_and_toss(monkey):
     item_in_hand = monkey["items"][0]
     monkey["items"] = monkey["items"][1:]
