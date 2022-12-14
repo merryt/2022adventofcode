@@ -1,7 +1,6 @@
 import copy
-# import sys
-# sys.setrecursionlimit(5000)
-day12input = open("./day12mark.txt", "r" )
+
+day12input = open("./day12small.txt", "r" )
 output = day12input.read()
 day12input.close()
 
@@ -44,9 +43,8 @@ def take_a_step(topo_map, position, map_history, count = 0, direction=" "):
     y = position["y"]
     x = position["x"]
     
-    
-    # if x == end["x"] and y == end["y"]:
-    if topo_map[y][x] == 101:
+    # if topo_map[y][x] == 101:    
+    if x == end["x"] and y == end["y"]:
         print("found end")
         paths.append(count)
         return count
