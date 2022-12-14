@@ -1,3 +1,6 @@
+"""
+Perhaps I need to implement something like https://www.youtube.com/watch?v=OrJ004Wid4o
+"""
 import copy
 
 day12input = open("./day12small.txt", "r" )
